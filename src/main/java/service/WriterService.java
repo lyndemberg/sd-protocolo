@@ -25,11 +25,19 @@ public class WriterService {
         if(!file.exists()){
             file.createNewFile();
         }
-        FileOutputStream output = new FileOutputStream(file);
-        output.write(message.getBytes());
-        output.write("\n".getBytes());
-        output.flush();
-        output.close();
+        FileWriter fr = new FileWriter(file, true);
+        BufferedWriter br = new BufferedWriter(fr);
+        PrintWriter pr = new PrintWriter(br);
+        pr.println(message.getBytes());
+        pr.close();
+        br.close();
+        fr.close();
+
+//        FileOutputStream output = new FileOutputStream(file);
+//        output.write(message.getBytes());
+//        output.write("\n".getBytes());
+//        output.flush();
+//        output.close();
     }
 
     @Override
