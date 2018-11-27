@@ -7,36 +7,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class Client {
-    private String inboxDir;
-    private String outboxDir;
+
     private MonitorService monitor;
     private WriterService writer;
 
     public Client(String inboxDir, String outboxDir) {
-        this.inboxDir = inboxDir;
-        this.outboxDir = outboxDir;
-        this.monitor = new MonitorService(this.getInboxDir());
-        this.writer = new WriterService(this.getOutboxDir());
-    }
-
-    public String getInboxDir() {
-        return inboxDir;
-    }
-
-    public void setInboxDir(String inboxDir) {
-        this.inboxDir = inboxDir;
-    }
-
-    public String getOutboxDir() {
-        return outboxDir;
-    }
-
-    public void setOutboxDir(String outboxDir) {
-        this.outboxDir = outboxDir;
+        this.monitor = new MonitorService(inboxDir);
+        this.writer = new WriterService(outboxDir);
     }
 
     public void start() throws IOException {
-        File file = new File(this.outboxDir + "chat.txt");
+        File file = new File(this.monitor.getDir() + "chat.txt");
         if(!file.exists()){
             file.createNewFile();
         }
@@ -50,9 +31,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "inboxDir='" + inboxDir + '\'' +
-                ", outboxDir='" + outboxDir + '\'' +
-                ", monitor=" + monitor +
+                "monitor=" + monitor +
                 ", writer=" + writer +
                 '}';
     }

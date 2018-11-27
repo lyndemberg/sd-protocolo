@@ -47,4 +47,17 @@ public class MonitorService extends Thread{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return "MonitorService{" +
+                "FILE_CHAT='" + FILE_CHAT + '\'' +
+                ", dir='" + dir + '\'' +
+                ", readerService=" + readerService +
+                '}';
+    }
+
+    public String getDir() {
+        return dir;
+    }
 }

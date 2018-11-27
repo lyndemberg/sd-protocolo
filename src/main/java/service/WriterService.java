@@ -22,12 +22,18 @@ public class WriterService {
 
     public void write(String message) throws IOException {
         File file = new File(this.dir + FILE_CHAT);
-        if(!file.exists()){
-            file.createNewFile();
-        }
         FileOutputStream output = new FileOutputStream(file);
         output.write(message.getBytes());
         output.write("\n".getBytes());
+        output.flush();
         output.close();
+    }
+
+    @Override
+    public String toString() {
+        return "WriterService{" +
+                "FILE_CHAT='" + FILE_CHAT + '\'' +
+                ", dir='" + dir + '\'' +
+                '}';
     }
 }
