@@ -5,6 +5,8 @@ import service.WriterService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Client {
 
@@ -17,10 +19,12 @@ public class Client {
     }
 
     public void start() throws IOException {
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        executor.execute(this.monitor);
         this.monitor.run();
     }
 
-    public void sendMessage(String message) throws IOException {
+    public void sendMessage(Message message) throws IOException {
         this.writer.write(message);
     }
 

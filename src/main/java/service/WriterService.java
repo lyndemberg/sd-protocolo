@@ -13,24 +13,23 @@ import java.util.Base64;
 import java.util.List;
 
 public class WriterService {
-    private final String FILE_CHAT = "chat.txt";
+    private final Gson gson;
+    private final String FILE_CHAT = "chat.json";
     private final String dir;
 
     public WriterService(String dir) {
         this.dir = dir;
+        this.gson = new Gson();
     }
 
-    public void write(String message) throws IOException {
-        File file = new File(dir + "chat.txt");
-        if(!file.exists()){
-            file.createNewFile();
+    public void write(Message nova) throws IOException {
+        File file = new File(dir + FILE_CHAT);
+        List<Message> messages = new ReaderService().listAll(dir + FILE_CHAT);
+        messages.add(nova);
+        try (Writer writer = new FileWriter(file)) {
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(messages, writer);
         }
-        FileWriter fr = new FileWriter(file, true);
-        BufferedWriter br = new BufferedWriter(fr);
-        br.write(message);
-        br.newLine();
-        br.close();
-        fr.close();
     }
 
     @Override

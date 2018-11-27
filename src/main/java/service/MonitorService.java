@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.*;
 
-public class MonitorService extends Thread{
-    private final String FILE_CHAT = "chat.txt";
+public class MonitorService implements Runnable{
+    private final String FILE_CHAT = "chat.json";
 
     private final String dir;
     private final ReaderService readerService;
-    private String lastMessage;
-//    private Message lastMessage;
+    private Message lastMessage;
     
     public MonitorService(String dir){
         this.dir = dir;
@@ -31,13 +30,11 @@ public class MonitorService extends Thread{
 //                    WatchEvent.Kind<?> eventKind = event.kind();
                     String eventName = event.context().toString();
                     if(eventName.equals(FILE_CHAT)){
-                        String message = readerService.readMessage(dir + FILE_CHAT);
+                        Message message = readerService.readMessage(dir + FILE_CHAT);
                         if(!message.equals(this.lastMessage)){
                             System.out.println(message);
                             this.lastMessage = message;
                         }
-//                        Message message = readerService.readMessage(dir + FILE_CHAT);
-
                     }
                 }
                 key.reset();

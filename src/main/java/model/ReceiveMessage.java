@@ -18,5 +18,10 @@ public class ReceiveMessage extends Message{
         return "A mensagem " + idTextMessage + " foi entregue";
     }
 
+    @Override
+    public String typeMessage() {
+        return "Receive";
+    }
+
 
 }

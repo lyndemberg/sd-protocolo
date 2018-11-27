@@ -16,6 +16,8 @@ public abstract class Message implements Serializable {
 
     public abstract String show();
 
+    public abstract String typeMessage();
+
     public String getSignature() {
         return signature;
     }

@@ -17,4 +17,9 @@ public class TextMessage extends Message{
         return null;
     }
 
+    @Override
+    public String typeMessage() {
+        return "Text";
+    }
+
 }
