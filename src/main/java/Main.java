@@ -12,6 +12,5 @@ public class Main {
         MonitorService monitor = new MonitorService(dir, file);
         monitor.run();
 
-
     }
 }

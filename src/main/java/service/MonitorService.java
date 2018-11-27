@@ -35,8 +35,7 @@ public class MonitorService extends Thread{
                         System.out.println(this.file + " FOI MODIFICADO");
                         Message message = readerService.readMessage(dir + file);
                         if(!message.equals(this.lastMessage)){
-                            System.out.println(message.getSignature());
-                            System.out.println(message.get);
+                            System.out.println(message.show());
                             this.lastMessage = message;
                         }
                     }
