@@ -23,7 +23,12 @@ public class WriterService {
     }
 
     public void write(Message nova) throws IOException {
+        
         File file = new File(dir + FILE_CHAT);
+
+        if(!file.exists())
+            file.createNewFile();
+
         List<Message> messages = new ReaderService().listAll(dir + FILE_CHAT);
         messages.add(nova);
         try (Writer writer = new FileWriter(file)) {

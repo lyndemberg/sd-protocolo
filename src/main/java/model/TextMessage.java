@@ -11,7 +11,6 @@ public class TextMessage extends Message{
         this.body = body;
     }
 
-
     @Override
     public String show() {
         return null;

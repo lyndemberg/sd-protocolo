@@ -23,10 +23,5 @@ public class Main {
         client.sendMessage(textMessage);
         client.start();
 
-
-
-
-
-
     }
 }
