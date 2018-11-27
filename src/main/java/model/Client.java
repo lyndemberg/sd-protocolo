@@ -21,6 +21,10 @@ public class Client {
         if(!file.exists()){
             file.createNewFile();
         }
+        File file2 = new File(this.writer.getDir() + "chat.txt");
+        if(!file2.exists()){
+            file2.createNewFile();
+        }
         this.monitor.run();
     }
 

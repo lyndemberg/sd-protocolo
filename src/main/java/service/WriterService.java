@@ -36,4 +36,8 @@ public class WriterService {
                 ", dir='" + dir + '\'' +
                 '}';
     }
+
+    public String getDir() {
+        return dir;
+    }
 }
