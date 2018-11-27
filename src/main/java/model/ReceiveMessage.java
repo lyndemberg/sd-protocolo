@@ -1,24 +1,22 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class ReceiveMessage extends Message{
+
     private String idTextMessage;
 
-    public ReceiveMessage(String signature, Timestamp stamp) {
-        super(signature, stamp);
+    public ReceiveMessage(String signature, String idTextMessage) {
+        super(signature);
+        this.idTextMessage = idTextMessage;
     }
+
 
     @Override
     public String show() {
         return "A mensagem " + idTextMessage + " foi entregue";
     }
 
-    public String getIdTextMessage() {
-        return idTextMessage;
-    }
 
-    public void setIdTextMessage(String idTextMessage) {
-        this.idTextMessage = idTextMessage;
-    }
 }

@@ -3,15 +3,15 @@ package service;
 import com.google.gson.Gson;
 import model.Message;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class ReaderService {
 
-    public Message readMessage(String file) throws IOException {
-        FileReader fileReader = new FileReader(file);
+    public ReaderService(){
+    }
+
+    public String readMessage(String path) throws IOException {
+        FileReader fileReader = new FileReader(path);
         BufferedReader buffer = new BufferedReader(fileReader);
         String lastLine = "";
         String sCurrentLine = "";
@@ -19,8 +19,7 @@ public class ReaderService {
             System.out.println(sCurrentLine);
             lastLine = sCurrentLine;
         }
-        Message message = new Gson().fromJson(lastLine, Message.class);
-        return message;
+        return lastLine;
     }
 
 }
