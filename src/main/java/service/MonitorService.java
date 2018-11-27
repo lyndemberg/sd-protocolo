@@ -12,6 +12,7 @@ public class MonitorService extends Thread{
 
     private final String dir;
     private final ReaderService readerService;
+    private String lastMessage;
 //    private Message lastMessage;
     
     public MonitorService(String dir){
@@ -30,13 +31,13 @@ public class MonitorService extends Thread{
 //                    WatchEvent.Kind<?> eventKind = event.kind();
                     String eventName = event.context().toString();
                     if(eventName.equals(FILE_CHAT)){
-                        System.out.println(FILE_CHAT + " FOI MODIFICADO");
-                        readerService.readMessage(dir + FILE_CHAT);
+                        String message = readerService.readMessage(dir + FILE_CHAT);
+                        if(!message.equals(this.lastMessage)){
+                            System.out.println(message);
+                            this.lastMessage = message;
+                        }
 //                        Message message = readerService.readMessage(dir + FILE_CHAT);
-//                        if(!message.equals(this.lastMessage)){
-//                            System.out.println(message.show());
-//                            this.lastMessage = message;
-//                        }
+
                     }
                 }
                 key.reset();

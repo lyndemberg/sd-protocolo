@@ -21,7 +21,10 @@ public class WriterService {
     }
 
     public void write(String message) throws IOException {
-        File file = new File(this.dir + FILE_CHAT);
+        File file = new File(dir + "chat.txt");
+        if(!file.exists()){
+            file.createNewFile();
+        }
         FileOutputStream output = new FileOutputStream(file);
         output.write(message.getBytes());
         output.write("\n".getBytes());

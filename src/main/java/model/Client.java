@@ -17,14 +17,6 @@ public class Client {
     }
 
     public void start() throws IOException {
-        File file = new File(this.monitor.getDir() + "chat.txt");
-        if(!file.exists()){
-            file.createNewFile();
-        }
-        File file2 = new File(this.writer.getDir() + "chat.txt");
-        if(!file2.exists()){
-            file2.createNewFile();
-        }
         this.monitor.run();
     }
 

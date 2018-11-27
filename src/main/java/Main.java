@@ -17,9 +17,10 @@ public class Main {
         String outbox = args[1];
         Client client = new Client(inbox, outbox);
         System.out.println(client.toString());
+        client.sendMessage("e ai jozimar");
         client.start();
 
-        client.sendMessage("e ai jozimar");
+
 
 
 

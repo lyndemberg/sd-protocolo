@@ -16,7 +16,6 @@ public class ReaderService {
         String lastLine = "";
         String sCurrentLine = "";
         while ((sCurrentLine = buffer.readLine()) != null) {
-            System.out.println(sCurrentLine);
             lastLine = sCurrentLine;
         }
         return lastLine;
