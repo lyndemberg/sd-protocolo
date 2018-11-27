@@ -27,9 +27,7 @@ public class WriterService {
         }
         FileWriter fr = new FileWriter(file, true);
         BufferedWriter br = new BufferedWriter(fr);
-        PrintWriter pr = new PrintWriter(br);
-        pr.println(message.getBytes());
-        pr.close();
+        br.write(message);
         br.close();
         fr.close();
 
