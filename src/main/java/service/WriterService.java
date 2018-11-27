@@ -28,14 +28,9 @@ public class WriterService {
         FileWriter fr = new FileWriter(file, true);
         BufferedWriter br = new BufferedWriter(fr);
         br.write(message);
+        br.newLine();
         br.close();
         fr.close();
-
-//        FileOutputStream output = new FileOutputStream(file);
-//        output.write(message.getBytes());
-//        output.write("\n".getBytes());
-//        output.flush();
-//        output.close();
     }
 
     @Override
