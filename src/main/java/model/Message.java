@@ -8,15 +8,13 @@ public abstract class Message implements Serializable {
 
     private String signature;
     private Timestamp stamp;
+    private String typeMessage;
 
-    public Message(String signature) {
+    public Message(String signature, String typeMessage) {
         this.signature = signature;
+        this.typeMessage = typeMessage;
         this.stamp = new Timestamp(Calendar.getInstance().getTime().getTime());
     }
-
-    public abstract String show();
-
-    public abstract String typeMessage();
 
     public String getSignature() {
         return signature;
@@ -32,5 +30,22 @@ public abstract class Message implements Serializable {
 
     public void setStamp(Timestamp stamp) {
         this.stamp = stamp;
+    }
+
+    public String getTypeMessage() {
+        return typeMessage;
+    }
+
+    public void setTypeMessage(String typeMessage) {
+        this.typeMessage = typeMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "signature='" + signature + '\'' +
+                ", stamp=" + stamp +
+                ", typeMessage='" + typeMessage + '\'' +
+                '}';
     }
 }

@@ -1,51 +1,35 @@
 package service;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import model.Message;
+import util.JsonUtils;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 public class WriterService {
     private final Gson gson;
-    private final String FILE_CHAT = "chat.json";
-    private final String dir;
+    private final String diretorio;
 
     public WriterService(String dir) {
-        this.dir = dir;
-        this.gson = new Gson();
+        this.diretorio = dir;
+        this.gson = JsonUtils.getGsonWithAdapters();
     }
 
     public void write(Message nova) throws IOException {
-        
-        File file = new File(dir + FILE_CHAT);
-
-        if(!file.exists())
-            file.createNewFile();
-
-        List<Message> messages = new ReaderService().listAll(dir + FILE_CHAT);
+        File file = new File(diretorio + File.separator + "chat.json");
+        List<Message> messages = new ReaderService().listAllMessages(file);
+        System.out.println(messages);
         messages.add(nova);
         try (Writer writer = new FileWriter(file)) {
-            Gson gson = new GsonBuilder().create();
+            Gson gson = this.gson;
             gson.toJson(messages, writer);
+            writer.close();
         }
+
     }
 
-    @Override
-    public String toString() {
-        return "WriterService{" +
-                "FILE_CHAT='" + FILE_CHAT + '\'' +
-                ", dir='" + dir + '\'' +
-                '}';
-    }
-
-    public String getDir() {
-        return dir;
+    public String getDiretorio() {
+        return diretorio;
     }
 }

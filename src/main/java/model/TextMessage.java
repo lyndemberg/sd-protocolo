@@ -7,18 +7,29 @@ public class TextMessage extends Message{
     private String body;
 
     public TextMessage(String signature, String body) {
-        super(signature);
+        super(signature,"Text");
+        this.body = body;
+    }
+
+    public TextMessage(){
+        super("", "");
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
         this.body = body;
     }
 
     @Override
-    public String show() {
-        return null;
+    public String toString() {
+        return "Message{" +
+                "signature='" + getSignature() + '\'' +
+                ", stamp=" + getStamp() +
+                ", typeMessage='" + getTypeMessage() + '\'' +
+                ", body='" + body  + '\'' +
+                '}';
     }
-
-    @Override
-    public String typeMessage() {
-        return "Text";
-    }
-
 }

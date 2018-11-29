@@ -3,37 +3,39 @@ package service;
 import com.sun.nio.file.SensitivityWatchEventModifier;
 import model.Message;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.*;
+import java.util.List;
 
 public class MonitorService implements Runnable{
-    private final String FILE_CHAT = "chat.json";
-
-    private final String dir;
+    private final String diretorio;
     private final ReaderService readerService;
     private Message lastMessage;
     
-    public MonitorService(String dir){
-        this.dir = dir;
-        readerService = new ReaderService();
+    public MonitorService(String diretorio){
+        this.diretorio = diretorio;
+        this.readerService = new ReaderService();
     }
 
     @Override
     public void run() {
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
-            Paths.get(dir).register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-            WatchKey key = watchService.take();
+            Paths.get(diretorio).register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
             while(true){
+                WatchKey key = watchService.take();
                 for(WatchEvent<?> event : key.pollEvents()){
 //                    WatchEvent.Kind<?> eventKind = event.kind();
                     String eventName = event.context().toString();
-                    if(eventName.equals(FILE_CHAT)){
-                        Message message = readerService.readMessage(dir + FILE_CHAT);
+                    if(eventName.equals("chat.json")){
+                        File file = new File(diretorio + File.separator + "chat.json");
+                        Thread.sleep(100);
+                        Message message = readerService.readMessage(file);
                         if(!message.equals(this.lastMessage)){
-                            System.out.println(message);
                             this.lastMessage = message;
+                            System.out.println("Chegou a mensagem: " + message);
                         }
                     }
                 }
@@ -46,16 +48,7 @@ public class MonitorService implements Runnable{
         }
     }
 
-    @Override
-    public String toString() {
-        return "MonitorService{" +
-                "FILE_CHAT='" + FILE_CHAT + '\'' +
-                ", dir='" + dir + '\'' +
-                ", readerService=" + readerService +
-                '}';
-    }
-
-    public String getDir() {
-        return dir;
+    public String getDiretorio() {
+        return diretorio;
     }
 }

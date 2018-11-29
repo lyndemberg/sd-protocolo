@@ -1,27 +1,23 @@
-package model;
+package connect;
 
+import model.Message;
 import service.MonitorService;
 import service.WriterService;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class Client {
-
+public class ClientAccess {
     private MonitorService monitor;
     private WriterService writer;
 
-    public Client(String inboxDir, String outboxDir) {
+    public ClientAccess(String inboxDir, String outboxDir) {
         this.monitor = new MonitorService(inboxDir);
         this.writer = new WriterService(outboxDir);
     }
 
     public void start() throws IOException {
-//        ExecutorService executor = Executors.newSingleThreadExecutor();
-//        executor.execute(this.monitor);
-        this.monitor.run();
+        Thread thread = new Thread(this.monitor);
+        thread.start();
     }
 
     public void sendMessage(Message message) throws IOException {
@@ -30,7 +26,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "ClientAccess{" +
                 "monitor=" + monitor +
                 ", writer=" + writer +
                 '}';

@@ -8,20 +8,25 @@ public class ReceiveMessage extends Message{
     private String idTextMessage;
 
     public ReceiveMessage(String signature, String idTextMessage) {
-        super(signature);
+        super(signature, "Receive");
         this.idTextMessage = idTextMessage;
     }
 
+    public String getIdTextMessage() {
+        return idTextMessage;
+    }
 
-    @Override
-    public String show() {
-        return "A mensagem " + idTextMessage + " foi entregue";
+    public void setIdTextMessage(String idTextMessage) {
+        this.idTextMessage = idTextMessage;
     }
 
     @Override
-    public String typeMessage() {
-        return "Receive";
+    public String toString() {
+        return "ReceiveMessage{" +
+                "signature='" + getSignature() + '\'' +
+                ", stamp=" + getStamp() +
+                ", typeMessage='" + getTypeMessage() + '\'' +
+                ", idTextMessage='" + idTextMessage + '\'' +
+                '}';
     }
-
-
 }
