@@ -35,7 +35,7 @@ public class MonitorService implements Runnable{
                         Message message = readerService.readMessage(file);
                         if(!message.equals(this.lastMessage)){
                             this.lastMessage = message;
-                            System.out.println("Chegou a mensagem: " + message);
+                            System.out.println("Chegou ----> " + message);
                         }
                     }
                 }

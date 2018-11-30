@@ -12,6 +12,8 @@ public class ReceiveMessage extends Message{
         this.idTextMessage = idTextMessage;
     }
 
+    
+
     public String getIdTextMessage() {
         return idTextMessage;
     }
