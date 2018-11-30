@@ -6,13 +6,9 @@ public class TextMessage extends Message{
 
     private String body;
 
-    public TextMessage(String signature, String body) {
-        super(signature,"Text");
+    public TextMessage(String body) {
+        super("Text");
         this.body = body;
-    }
-
-    public TextMessage(){
-        super("", "");
     }
 
     public String getBody() {

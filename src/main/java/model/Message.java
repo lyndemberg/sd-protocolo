@@ -10,8 +10,7 @@ public abstract class Message implements Serializable {
     private Timestamp stamp;
     private String typeMessage;
 
-    public Message(String signature, String typeMessage) {
-        this.signature = signature;
+    public Message(String typeMessage) {
         this.typeMessage = typeMessage;
         this.stamp = new Timestamp(Calendar.getInstance().getTime().getTime());
     }
@@ -28,16 +27,28 @@ public abstract class Message implements Serializable {
         return stamp;
     }
 
-    public void setStamp(Timestamp stamp) {
-        this.stamp = stamp;
-    }
-
     public String getTypeMessage() {
         return typeMessage;
     }
 
-    public void setTypeMessage(String typeMessage) {
-        this.typeMessage = typeMessage;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Message message = (Message) o;
+
+        if (signature != null ? !signature.equals(message.signature) : message.signature != null) return false;
+        if (stamp != null ? !stamp.equals(message.stamp) : message.stamp != null) return false;
+        return typeMessage != null ? typeMessage.equals(message.typeMessage) : message.typeMessage == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = signature != null ? signature.hashCode() : 0;
+        result = 31 * result + (stamp != null ? stamp.hashCode() : 0);
+        result = 31 * result + (typeMessage != null ? typeMessage.hashCode() : 0);
+        return result;
     }
 
     @Override

@@ -7,10 +7,12 @@ import service.WriterService;
 import java.io.IOException;
 
 public class ClientAccess {
+    private String signature;
     private MonitorService monitor;
     private WriterService writer;
 
-    public ClientAccess(String inboxDir, String outboxDir) {
+    public ClientAccess(String signature, String inboxDir, String outboxDir) {
+        this.signature = signature;
         this.monitor = new MonitorService(inboxDir);
         this.writer = new WriterService(outboxDir);
     }
@@ -21,7 +23,16 @@ public class ClientAccess {
     }
 
     public void sendMessage(Message message) throws IOException {
+        message.setSignature(this.signature);
         this.writer.write(message);
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     @Override

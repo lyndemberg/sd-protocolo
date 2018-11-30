@@ -7,8 +7,8 @@ public class ReceiveMessage extends Message{
 
     private String idTextMessage;
 
-    public ReceiveMessage(String signature, String idTextMessage) {
-        super(signature, "Receive");
+    public ReceiveMessage(String idTextMessage) {
+        super("Receive");
         this.idTextMessage = idTextMessage;
     }
 
