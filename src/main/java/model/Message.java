@@ -10,6 +10,7 @@ public abstract class Message implements Serializable {
     private Timestamp stamp;
     private String typeMessage;
 
+
     public Message(String typeMessage) {
         this.typeMessage = typeMessage;
         this.stamp = new Timestamp(Calendar.getInstance().getTime().getTime());

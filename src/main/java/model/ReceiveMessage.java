@@ -5,21 +5,20 @@ import java.sql.Timestamp;
 
 public class ReceiveMessage extends Message{
 
-    private String idTextMessage;
+    private String stampTextMessage;
 
-    public ReceiveMessage(String idTextMessage) {
+    public ReceiveMessage(String stampTextMessage) {
         super("Receive");
-        this.idTextMessage = idTextMessage;
+        this.stampTextMessage = stampTextMessage;
     }
 
-    
 
-    public String getIdTextMessage() {
-        return idTextMessage;
+    public String getStampTextMessage() {
+        return stampTextMessage;
     }
 
-    public void setIdTextMessage(String idTextMessage) {
-        this.idTextMessage = idTextMessage;
+    public void setStampTextMessage(String stampTextMessage) {
+        this.stampTextMessage = stampTextMessage;
     }
 
     @Override
@@ -28,7 +27,7 @@ public class ReceiveMessage extends Message{
                 "signature='" + getSignature() + '\'' +
                 ", stamp=" + getStamp() +
                 ", typeMessage='" + getTypeMessage() + '\'' +
-                ", idTextMessage='" + idTextMessage + '\'' +
+                ", stampTextMessage='" + stampTextMessage + '\'' +
                 '}';
     }
 }
