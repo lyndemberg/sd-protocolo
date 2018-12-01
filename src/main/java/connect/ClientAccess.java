@@ -35,13 +35,8 @@ public class ClientAccess {
         System.out.println("Nova mensagem: " + message);
         if(message.getTypeMessage().equals("Text")){
             ReceiveMessage receiveMessage = new ReceiveMessage(message.getStamp().toString());
-            receiveMessage.setSignature(this.signature);
-            enviarMensagemEntregue(receiveMessage);
+            sendMessage(receiveMessage);
         }
-    }
-
-    private void enviarMensagemEntregue(Message message) throws IOException {
-        this.writer.write(message);
     }
 
     public String getSignature() {
