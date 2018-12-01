@@ -19,7 +19,6 @@ public class WriterService {
     public void write(Message nova) throws IOException {
         File file = new File(diretorio + File.separator + "chat.json");
         List<Message> messages = new ReaderService().listAllMessages(file);
-        System.out.println(messages);
         messages.add(nova);
         try (Writer writer = new FileWriter(file)) {
             Gson gson = this.gson;

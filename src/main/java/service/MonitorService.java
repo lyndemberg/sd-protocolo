@@ -1,6 +1,7 @@
 package service;
 
 import com.sun.nio.file.SensitivityWatchEventModifier;
+import connect.ClientAccess;
 import model.Message;
 
 import java.io.File;
@@ -11,10 +12,12 @@ import java.util.List;
 
 public class MonitorService implements Runnable{
     private final String diretorio;
+    private ClientAccess client;
     private final ReaderService readerService;
     private Message lastMessage;
     
-    public MonitorService(String diretorio){
+    public MonitorService(ClientAccess client, String diretorio){
+        this.client = client;
         this.diretorio = diretorio;
         this.readerService = new ReaderService();
     }
@@ -35,7 +38,7 @@ public class MonitorService implements Runnable{
                         Message message = readerService.readMessage(file);
                         if(!message.equals(this.lastMessage)){
                             this.lastMessage = message;
-                            System.out.println("Chegou ----> " + message);
+                            client.notify(message);
                         }
                     }
                 }

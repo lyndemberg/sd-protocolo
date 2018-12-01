@@ -13,7 +13,9 @@ import java.util.ArrayList;
 public class JsonUtils {
 
     public static Gson getGsonWithAdapters(){
-        return new GsonBuilder().registerTypeAdapter(Message.class, new MessageDeserializer()).create();
+        return new GsonBuilder().
+                    registerTypeAdapter(Message.class, new MessageDeserializer())
+                        .setPrettyPrinting().create();
     }
 
 

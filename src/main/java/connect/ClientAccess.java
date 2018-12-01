@@ -1,25 +1,29 @@
 package connect;
 
 import model.Message;
+import model.ReceiveMessage;
 import service.MonitorService;
 import service.WriterService;
 
 import java.io.IOException;
 
 public class ClientAccess {
-    private String signature;
-    private MonitorService monitor;
+    private final String signature;
+    private final String inboxDir;
+    private final String outboxDir;
+    private Thread threadMonitor;
     private WriterService writer;
 
     public ClientAccess(String signature, String inboxDir, String outboxDir) {
         this.signature = signature;
-        this.monitor = new MonitorService(inboxDir);
-        this.writer = new WriterService(outboxDir);
+        this.inboxDir = inboxDir;
+        this.outboxDir = outboxDir;
     }
 
     public void start() throws IOException {
-        Thread thread = new Thread(this.monitor);
-        thread.start();
+        this.threadMonitor = new Thread(new MonitorService(this, inboxDir));
+        this.threadMonitor.start();
+        this.writer = new WriterService(outboxDir);
     }
 
     public void sendMessage(Message message) throws IOException {
@@ -27,19 +31,22 @@ public class ClientAccess {
         this.writer.write(message);
     }
 
+    public void notify(Message message) throws IOException {
+        System.out.println("Nova mensagem: " + message);
+        if(message.getTypeMessage().equals("Text")){
+            ReceiveMessage receiveMessage = new ReceiveMessage(message.getStamp().toString());
+            receiveMessage.setSignature(this.signature);
+            enviarMensagemEntregue(receiveMessage);
+        }
+    }
+
+    private void enviarMensagemEntregue(Message message) throws IOException {
+        this.writer.write(message);
+    }
+
     public String getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
 
-    @Override
-    public String toString() {
-        return "ClientAccess{" +
-                "monitor=" + monitor +
-                ", writer=" + writer +
-                '}';
-    }
 }
